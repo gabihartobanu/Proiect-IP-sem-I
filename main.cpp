@@ -12,7 +12,7 @@ public:
     Minesweeper();
     void Mesaj_Bun_Venit();
     void plasareMine();
-    void Countem();
+    void VerificareVecini();
     void Mutare();
     void Afiseaza_Matrice_Afisata();
     void Mesaj_de_Incheiere();
@@ -62,12 +62,143 @@ void Minesweeper::plasareMine()
             matriceaSursa[x][y]='*';
     }
 }
+void Minesweeper::VerificareVecini()
+{
+    int numarBombeVecine;
+    for (int a=0;a<lungime;a++)
+    {
+        for (int b=0;b<inaltime;b++)
+        {
+            if(matriceaSursa[a][b]!='*')
+            {
+                int numarBombeVecine=0;
+                if (a==0 && b==0)
+                {
+                    if (matriceaSursa[a+1][b]=='*')
+                        numarBombeVecine++;
+                    if (matriceaSursa[a+1][b+1]=='*')
+                        numarBombeVecine++;
+                    if (matriceaSursa[a][b+1]=='*')
+                        numarBombeVecine++;
+                }
+                else
+                    if (a==0 && b==9)
+                    {
+
+                        if (matriceaSursa[a][b-1]=='*')
+                            numarBombeVecine++;
+                        if (matriceaSursa[a+1][b-1]=='*')
+                            numarBombeVecine++;
+                        if (matriceaSursa[a+1][b]=='*')
+                            numarBombeVecine++;
+                    }
+                    else
+                        if (a==9 && b==9)
+                        {
+                            if (matriceaSursa[a-1][b]=='*')
+                                numarBombeVecine++;
+                            if (matriceaSursa[a-1][b-1]=='*')
+                                numarBombeVecine++;
+                            if (matriceaSursa[a][b-1]=='*')
+                                numarBombeVecine++;
+                        }
+                        else
+                            if (a==9 && b==0)
+                            {
+                                if (matriceaSursa[a-1][b]=='*')
+                                    numarBombeVecine++;
+                                if (matriceaSursa[a-1][b+1]=='*')
+                                    numarBombeVecine++;
+                                if (matriceaSursa[a][b+1]=='*')
+                                    numarBombeVecine++;
+                            }
+                            else
+                                if(a==0)
+                                {
+                                    if (matriceaSursa[a][b-1]=='*')
+                                        numarBombeVecine++;
+                                    if (matriceaSursa[a][b+1]=='*')
+                                        numarBombeVecine++;
+                                    if (matriceaSursa[a+1][b-1]=='*')
+                                        numarBombeVecine++;
+                                    if (matriceaSursa[a+1][b+1]=='*')
+                                        numarBombeVecine++;
+                                    if (matriceaSursa[a+1][b]=='*')
+                                        numarBombeVecine++;
+                                }
+                                else
+                                    if(a==9)
+                                    {
+                                        if (matriceaSursa[a][b-1]=='*')
+                                            numarBombeVecine++;
+                                        if (matriceaSursa[a][b+1]=='*')
+                                            numarBombeVecine++;
+                                        if (matriceaSursa[a-1][b-1]=='*')
+                                            numarBombeVecine++;
+                                        if (matriceaSursa[a-1][b+1]=='*')
+                                            numarBombeVecine++;
+                                        if (matriceaSursa[a-1][b]=='*')
+                                            numarBombeVecine++;
+                                    }
+                                    else
+                                        if(b==0)
+                                        {
+                                            if (matriceaSursa[a-1][b]=='*')
+                                                numarBombeVecine++;
+                                            if (matriceaSursa[a+1][b]=='*')
+                                                numarBombeVecine++;
+                                            if (matriceaSursa[a-1][b+1]=='*')
+                                                numarBombeVecine++;
+                                            if (matriceaSursa[a+1][b+1]=='*')
+                                                numarBombeVecine++;
+                                            if (matriceaSursa[a][b+1]=='*')
+                                                numarBombeVecine++;
+                                        }
+                                        else
+                                            if(b==9)
+                                            {
+                                                if (matriceaSursa[a-1][b]=='*')
+                                                    numarBombeVecine++;
+                                                if (matriceaSursa[a+1][b]=='*')
+                                                    numarBombeVecine++;
+                                                if (matriceaSursa[a-1][b-1]=='*')
+                                                    numarBombeVecine++;
+                                                if (matriceaSursa[a+1][b-1]=='*')
+                                                    numarBombeVecine++;
+                                                if (matriceaSursa[a][b-1]=='*')
+                                                    numarBombeVecine++;
+                                            }
+                                            else
+                                            {
+                                                if (matriceaSursa[a-1][b]=='*')
+                                                    numarBombeVecine++;
+                                                if (matriceaSursa[a][b-1]=='*')
+                                                    numarBombeVecine++;
+                                                if (matriceaSursa[a-1][b-1]=='*')
+                                                    numarBombeVecine++;
+                                                if (matriceaSursa[a+1][b+1]=='*')
+                                                    numarBombeVecine++;
+                                                if (matriceaSursa[a-1][b+1]=='*')
+                                                    numarBombeVecine++;
+                                                if (matriceaSursa[a+1][b-1]=='*')
+                                                    numarBombeVecine++;
+                                                if (matriceaSursa[a+1][b]=='*')
+                                                    numarBombeVecine++;
+                                                if (matriceaSursa[a][b+1]=='*')
+                                                    numarBombeVecine++;
+                                            }
+                    numarBombeVecine=numarBombeVecine+48;
+                    matriceaSursa[a][b]=numarBombeVecine;
+            }
+        }
+    }
+}
 void Minesweeper::Afiseaza_Matrice_Afisata()
 {
     int a ,b;
     cout<<"  ";
     for(a=0;a<lungime;a++)
-        cout<<"  "<<a<<" ";
+        cout<<"  "<<char(a+65)<<" ";
     cout<<endl;
     cout<<"  ";
     for(a=0;a<lungime*4;a++)
@@ -127,6 +258,7 @@ int main()
       thisgame.Mesaj_Bun_Venit();
     thisgame.plasareMine();
     //thisgame.Afiseaza_Matrice_Afisata();
+    thisgame.VerificareVecini();
     thisgame.Mesaj_de_Incheiere();
     return 0;
 }
