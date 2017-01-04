@@ -17,6 +17,7 @@ public:
     void Mutare();
     void Afiseaza_Matrice_Afisata();
     void Mesaj_de_Incheiere();
+    void umplere(int, int);
 };
 Minesweeper::Minesweeper()
 {
@@ -197,6 +198,10 @@ void Minesweeper::VerificareVecini()
         }
     }
 }
+void Minesweeper::umplere(int x, int y)
+{
+
+}
 void Minesweeper::Mutare()
 {
     char coloana;
@@ -221,18 +226,18 @@ void Minesweeper::Mutare()
         system("cls");
         Mutare();
     }
-    if (matriceaAfisata[linie][coloana]==matriceaSursa[linie][coloana])
+    if (matriceaAfisata[linie][coloana-65]==matriceaSursa[linie][coloana-65])
     {
         system("cls");
         Mutare();
     }
     else
     {
-        matriceaAfisata[linie][coloana]=matriceaSursa[linie][coloana];
+        matriceaAfisata[linie][coloana-65]=matriceaSursa[linie][coloana-65];
         nonmines++;
         system("cls");
     }
-    if (matriceaSursa[linie][coloana]=='*' || nonmines>=(lungime*inaltime)-nrMine)
+    if (matriceaSursa[linie][coloana-65]=='*' || nonmines>=(lungime*inaltime)-nrMine)
     {
         Mesaj_de_Incheiere();
     }
