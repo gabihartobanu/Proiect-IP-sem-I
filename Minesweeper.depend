@@ -1,6 +1,7 @@
 # depslib dependency file v1.0
-1483541117 source:d:\proiecte\programe_codeblocks\minesweeper\main.cpp
+1483545413 source:d:\proiecte\programe_codeblocks\minesweeper\main.cpp
 	<iostream>
 	<stdlib.h>
 	<time.h>
+	<cstring>
 

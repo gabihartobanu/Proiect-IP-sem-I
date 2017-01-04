@@ -1,6 +1,7 @@
 #include<iostream>
 #include<stdlib.h>
 #include<time.h>
+#include<cstring>
 using namespace std;
 char matriceaSursa[100][100],matriceaAfisata[100][100];
 class Minesweeper
@@ -39,10 +40,10 @@ void Minesweeper::Mesaj_Bun_Venit()
     system("pause");
     system("cls");
     cout<<"Acum dati dimensiunea matricei, de preferabil patratica."<<endl;
-    cout<<"Dati lungimea matricei: ";
-    cin>>lungime;
     cout<<"Dati inaltimea matricei: ";
     cin>>inaltime;
+    cout<<"Dati lungimea matricei: ";
+    cin>>lungime;
     system("cls");
 }
 void Minesweeper::plasareMine()
@@ -53,21 +54,24 @@ void Minesweeper::plasareMine()
     else nrMine=(lungime*inaltime)/10+1;
     for(int mine=0;mine<nrMine;mine++)
     {
-        int x=rand()%lungime;
-        int y=rand()%inaltime;
+        int x=rand()%inaltime;
+        int y=rand()%lungime;
 
         if (matriceaSursa[x][y]=='*')
             mine--;
         else
             matriceaSursa[x][y]='*';
     }
+    for(i=0;i<inaltime;i++)
+        for(j=0;j<lungime;j++)
+            matriceaAfisata[i][j]=char(176);
 }
 void Minesweeper::VerificareVecini()
 {
     int numarBombeVecine;
-    for (int a=0;a<lungime;a++)
+    for (int a=0;a<inaltime;a++)
     {
-        for (int b=0;b<inaltime;b++)
+        for (int b=0;b<lungime;b++)
         {
             if(matriceaSursa[a][b]!='*')
             {
@@ -188,10 +192,52 @@ void Minesweeper::VerificareVecini()
                                                     numarBombeVecine++;
                                             }
                     numarBombeVecine=numarBombeVecine+48;
-                    matriceaSursa[a][b]=numarBombeVecine;
+                    matriceaSursa[a][b]=char(numarBombeVecine);
             }
         }
     }
+}
+void Minesweeper::Mutare()
+{
+    char coloana;
+    int linie;
+    Afiseaza_Matrice_Afisata();
+
+    cout<<"Introduceti o linie de la 0 la "<<inaltime-1<<endl;
+    cin>>linie;
+    if (linie<0 || linie>=inaltime)
+    {
+        cout<<"Introduceti o linie de la 0 la "<<inaltime-1<<endl;
+        system("pause");
+        system("cls");
+        Mutare();
+    }
+    cout<<"Introduceti o coloana de la A la "<<char(lungime+64)<<endl;
+    cin>>coloana;
+    if (coloana<'A' || coloana>=lungime+'A')
+    {
+        cout<<"Introduceti o coloana de la A la "<<char(lungime+64)<<endl;
+        system("pause");
+        system("cls");
+        Mutare();
+    }
+    if (matriceaAfisata[linie][coloana]==matriceaSursa[linie][coloana])
+    {
+        system("cls");
+        Mutare();
+    }
+    else
+    {
+        matriceaAfisata[linie][coloana]=matriceaSursa[linie][coloana];
+        nonmines++;
+        system("cls");
+    }
+    if (matriceaSursa[linie][coloana]=='*' || nonmines>=(lungime*inaltime)-nrMine)
+    {
+        Mesaj_de_Incheiere();
+    }
+    else
+        Mutare();
 }
 void Minesweeper::Afiseaza_Matrice_Afisata()
 {
@@ -204,12 +250,12 @@ void Minesweeper::Afiseaza_Matrice_Afisata()
     for(a=0;a<lungime*4;a++)
         cout<<"_";
     cout<<endl;
-    for (a=0;a<lungime;a++)
+    for (a=0;a<inaltime;a++)
     {
         cout<<a<<" |";
-        for (b=0;b<inaltime;b++)
+        for (b=0;b<lungime;b++)
         {
-            cout<<" "<<matriceaSursa[a][b]<<" |";
+            cout<<" "<<matriceaAfisata[a][b]<<" |";
         }
         cout<<endl;
         cout<<"  ";
@@ -221,18 +267,18 @@ void Minesweeper::Afiseaza_Matrice_Afisata()
 void Minesweeper::Mesaj_de_Incheiere()
 {
     int a ,b;
-    for(a=0;a<lungime*4-4;a++)
+    for(a=0;a<lungime*3;a++)
         cout<<"_";
     cout<<endl;
-    for (a=0;a<lungime;a++)
+    for (a=0;a<inaltime;a++)
     {
         cout<<"|";
-        for (b=0;b<inaltime;b++)
+        for (b=0;b<lungime;b++)
         {
             cout<<matriceaSursa[a][b]<<" |";
         }
         cout<<endl;
-        for(b=0;b<lungime*4-4;b++)
+        for(b=0;b<lungime*3;b++)
             cout<<"_";
         cout<<endl;
     }
@@ -240,7 +286,7 @@ void Minesweeper::Mesaj_de_Incheiere()
     cout<<"Multumesc pentru ca ati jucat acest joc"<<endl;
     if (nonmines==lungime*inaltime-nrMine)
     {
-        cout<<"Felicitari, acum dute sa joci un Minesweeper adevarat!"<<endl;
+        cout<<"Felicitari, acum du-te sa joci un Minesweeper adevarat!"<<endl;
     }
     else
     {
@@ -248,7 +294,6 @@ void Minesweeper::Mesaj_de_Incheiere()
     }
 
     cout<<endl<<"Multumesc ca ati trecut pe aici!"<<endl;
-
 }
 int main()
 {
@@ -259,6 +304,7 @@ int main()
     thisgame.plasareMine();
     //thisgame.Afiseaza_Matrice_Afisata();
     thisgame.VerificareVecini();
-    thisgame.Mesaj_de_Incheiere();
+    thisgame.Mutare();
+    //thisgame.Mesaj_de_Incheiere();
     return 0;
 }
