@@ -201,9 +201,10 @@ void Minesweeper::VerificareVecini()
 void Minesweeper::umplere(int x, int y)
 {
     int coada[2][1000],prim=0,ultim=0;
-    //nonmines++;
+    nonmines++;
     coada[0][ultim]=x;
     coada[1][ultim]=y;
+    matriceaAfisata[x][y]=matriceaSursa[x][y];
     ultim++;
     while(prim<ultim)
         {
@@ -575,7 +576,6 @@ void Minesweeper::umplere(int x, int y)
                                             }
             prim++;
         }
-    nonmines--;
     //nonmines=nonmines+ultim-1;
     /*for(int i=0;i<ultim;i++)
     {
@@ -618,11 +618,11 @@ void Minesweeper::Mutare()
     else
     {
         umplere(linie,coloana-65);
-        matriceaAfisata[linie][coloana-65]=matriceaSursa[linie][coloana-65];
-        nonmines++;
+        //matriceaAfisata[linie][coloana-65]=matriceaSursa[linie][coloana-65];
+        //nonmines++;
         system("cls");
     }
-    if (matriceaSursa[linie][coloana-65]=='*' || nonmines>=(lungime*inaltime)-nrMine)
+    if (lungime*inaltime-nonmines-nrMine<=0 || matriceaSursa[linie][coloana-65]=='*')
     {
         Mesaj_de_Incheiere();
     }
@@ -672,15 +672,13 @@ void Minesweeper::Mesaj_de_Incheiere()
             cout<<"_";
         cout<<endl;
     }
-
-    cout<<"Multumesc pentru ca ati jucat acest joc"<<endl;
     if (nonmines==lungime*inaltime-nrMine)
     {
-        cout<<"Felicitari, acum du-te sa joci un Minesweeper adevarat!"<<endl;
+        cout<<"Felicitari, acum du-te sa joci un Minesweeper unde sa poti folosi mouse-ul!"<<endl;
     }
     else
     {
-        cout<<"Ai pierdut, mai bine joaca un Minesweeper adevarat!"<<endl;
+        cout<<"Ai pierdut, mai bine joaca un Minesweeper unde poti folosi mouse-ul!"<<endl;
     }
 
     cout<<endl<<"Multumesc ca ati trecut pe aici!"<<endl;
