@@ -588,7 +588,7 @@ void Minesweeper::umplere(int x, int y)
 void Minesweeper::Mutare()
 {
     char coloana;
-    int linie;
+    int linie, operatie;
     cout<<"Mai avetit de completat "<<lungime*inaltime-nonmines-nrMine<<" spatii fara mine."<<endl;
     Afiseaza_Matrice_Afisata();
 
@@ -610,24 +610,44 @@ void Minesweeper::Mutare()
         system("cls");
         Mutare();
     }
-    if (matriceaAfisata[linie][coloana-65]==matriceaSursa[linie][coloana-65])
+    cout<<"Alegeti o operatie: 0 = deschidere; 1 = marcareca posibila bomba."<<endl;
+    cin>>operatie;
+    if(operatie<0 || operatie>1)
     {
+        cout<<"Introduceti o operatie valida";
+        system("pause");
         system("cls");
         Mutare();
     }
+    if(operatie==1)
+        {
+            if(matriceaAfisata[linie][coloana-65]!=matriceaSursa[linie][coloana-65])
+                matriceaAfisata[linie][coloana-65]='!';
+            system("pause");
+            system("cls");
+            Mutare();
+        }
     else
     {
-        umplere(linie,coloana-65);
-        //matriceaAfisata[linie][coloana-65]=matriceaSursa[linie][coloana-65];
-        //nonmines++;
-        system("cls");
+        if (matriceaAfisata[linie][coloana-65]==matriceaSursa[linie][coloana-65])
+        {
+            system("cls");
+            Mutare();
+        }
+        else
+        {
+            umplere(linie,coloana-65);
+            //matriceaAfisata[linie][coloana-65]=matriceaSursa[linie][coloana-65];
+            //nonmines++;
+            system("cls");
+        }
+        if (lungime*inaltime-nonmines-nrMine<=0 || matriceaSursa[linie][coloana-65]=='*')
+        {
+            Mesaj_de_Incheiere();
+        }
+        else
+            Mutare();
     }
-    if (lungime*inaltime-nonmines-nrMine<=0 || matriceaSursa[linie][coloana-65]=='*')
-    {
-        Mesaj_de_Incheiere();
-    }
-    else
-        Mutare();
 }
 void Minesweeper::Afiseaza_Matrice_Afisata()
 {
