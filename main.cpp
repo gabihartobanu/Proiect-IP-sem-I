@@ -2,6 +2,7 @@
 #include<stdlib.h>
 #include<time.h>
 #include<cstring>
+#include<windows.h>
 using namespace std;
 char matriceaSursa[100][100],matriceaAfisata[100][100];
 class Minesweeper
@@ -623,9 +624,10 @@ void Minesweeper::Mutare()
     int linie, operatie;
     cout<<"Mai avetit de completat "<<lungime*inaltime-nonmines-nrMine<<" spatii fara mine."<<endl;
     Afiseaza_Matrice_Afisata();
-
     cout<<"Introduceti o linie de la 0 la "<<inaltime-1<<endl;
     cin>>linie;
+    if (linie == VK_ESCAPE)
+        exit(0);
     if (linie<0 || linie>=inaltime)
     {
         cout<<"Introduceti o linie de la 0 la "<<inaltime-1<<endl;
