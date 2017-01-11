@@ -25,6 +25,7 @@ Minesweeper::Minesweeper()
 }
 void Minesweeper::Mesaj_Bun_Venit()
 {
+    int optiune;
     cout<<" ________________________________________________________________"<<endl;
     cout<<"| Bun venit in jocul meu de Minesweeper                          |"<<endl;
     cout<<"|----------------------------------------------------------------|"<<endl;
@@ -40,19 +41,51 @@ void Minesweeper::Mesaj_Bun_Venit()
     cout<<endl;
     system("pause");
     system("cls");
-    cout<<"Acum dati dimensiunea matricei, de preferabil patratica."<<endl;
-    cout<<"Dati inaltimea matricei: ";
-    cin>>inaltime;
-    cout<<"Dati lungimea matricei: ";
-    cin>>lungime;
+    cout<<"Alegeti una din optiunile de mai jos"<<endl;
+    cout<<"1. Easy"<<endl;
+    cout<<"2. Normal"<<endl;
+    cout<<"3. Hard"<<endl;
+    cout<<"4. Personalizat"<<endl;
+    cout<<"5. Iesire"<<endl;
+    cin>>optiune;
     system("cls");
+    if(optiune==5)
+        exit(0);
+    if(optiune==1)
+    {
+        inaltime=9;
+        lungime=9;
+        nrMine=10;
+    }
+    if(optiune==2)
+    {
+        inaltime=16;
+        lungime=16;
+        nrMine=40;
+    }
+    if(optiune==3)
+    {
+        inaltime=16;
+        lungime=30;
+        nrMine=99;
+    }
+    if(optiune==4)
+    {
+        cout<<"Acum dati dimensiunea matricei, de preferabil patratica."<<endl;
+        cout<<"Dati inaltimea matricei: ";
+        cin>>inaltime;
+        cout<<"Dati lungimea matricei: ";
+        cin>>lungime;
+        system("cls");
+    }
 }
 void Minesweeper::plasareMine()
 {
     int i,j;
-    if((lungime*inaltime)%10==0)
-        nrMine=(lungime*inaltime)/10;
-    else nrMine=(lungime*inaltime)/10+1;
+    if(nrMine==0)
+        if((lungime*inaltime)%10==0)
+            nrMine=(lungime*inaltime)/10;
+        else nrMine=(lungime*inaltime)/10+1;
     for(int mine=0;mine<nrMine;mine++)
     {
         int x=rand()%inaltime;
