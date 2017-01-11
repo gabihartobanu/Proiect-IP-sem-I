@@ -7,8 +7,8 @@ char matriceaSursa[100][100],matriceaAfisata[100][100];
 class Minesweeper
 {
 private:
-    int x,y,lungime,inaltime,nrMine;
-    int nonmines;
+    int x,y,lungime,inaltime,nrMine=0,nrFlaguri=0;
+    int nonmines=0;
 public:
     Minesweeper();
     void Mesaj_Bun_Venit();
@@ -69,7 +69,6 @@ void Minesweeper::plasareMine()
 }
 void Minesweeper::VerificareVecini()
 {
-    int numarBombeVecine;
     for (int a=0;a<inaltime;a++)
     {
         for (int b=0;b<lungime;b++)
@@ -215,7 +214,7 @@ void Minesweeper::umplere(int x, int y)
                 {
                     coada[0][ultim]=x;
                     coada[1][ultim]=y+1;
-                    if(matriceaAfisata[x][y+1]==char(176))
+                    if(matriceaAfisata[x][y+1]==char(176) && matriceaAfisata[x][y+1]!='!')
                         {
                             nonmines++;
                             matriceaAfisata[x][y+1]=matriceaSursa[x][y+1];
@@ -223,7 +222,7 @@ void Minesweeper::umplere(int x, int y)
                         }
                     coada[0][ultim]=x+1;
                     coada[1][ultim]=y+1;
-                    if(matriceaAfisata[x+1][y+1]==char(176))
+                    if(matriceaAfisata[x+1][y+1]==char(176) && matriceaAfisata[x+1][y+1]!='!')
                         {
                             nonmines++;
                             matriceaAfisata[x+1][y+1]=matriceaSursa[x+1][y+1];
@@ -231,7 +230,7 @@ void Minesweeper::umplere(int x, int y)
                         }
                     coada[0][ultim]=x+1;
                     coada[1][ultim]=y;
-                    if(matriceaAfisata[x+1][y]==char(176))
+                    if(matriceaAfisata[x+1][y]==char(176) && matriceaAfisata[x+1][y]!='!')
                         {
                             nonmines++;
                             matriceaAfisata[x+1][y]=matriceaSursa[x+1][y];
@@ -244,7 +243,7 @@ void Minesweeper::umplere(int x, int y)
                     {
                         coada[0][ultim]=x;
                         coada[1][ultim]=y-1;
-                        if(matriceaAfisata[x][y-1]==char(176))
+                        if(matriceaAfisata[x][y-1]==char(176) && matriceaAfisata[x][y-1]!='!')
                             {
                                 nonmines++;
                                 matriceaAfisata[x][y-1]=matriceaSursa[x][y-1];
@@ -252,7 +251,7 @@ void Minesweeper::umplere(int x, int y)
                             }
                         coada[0][ultim]=x+1;
                         coada[1][ultim]=y-1;
-                        if(matriceaAfisata[x+1][y-1]==char(176))
+                        if(matriceaAfisata[x+1][y-1]==char(176) && matriceaAfisata[x+1][y-1]!='!')
                             {
                                 nonmines++;
                                 matriceaAfisata[x+1][y-1]=matriceaSursa[x+1][y-1];
@@ -260,7 +259,7 @@ void Minesweeper::umplere(int x, int y)
                             }
                         coada[0][ultim]=x+1;
                         coada[1][ultim]=y;
-                        if(matriceaAfisata[x+1][y]==char(176))
+                        if(matriceaAfisata[x+1][y]==char(176) && matriceaAfisata[x+1][y]!='!')
                             {
                                 nonmines++;
                                 matriceaAfisata[x+1][y]=matriceaSursa[x+1][y];
@@ -273,7 +272,7 @@ void Minesweeper::umplere(int x, int y)
                         {
                             coada[0][ultim]=x-1;
                             coada[1][ultim]=y;
-                            if(matriceaAfisata[x-1][y]==char(176))
+                            if(matriceaAfisata[x-1][y]==char(176) && matriceaAfisata[x-1][y]!='!')
                                 {
                                     nonmines++;
                                     matriceaAfisata[x-1][y]=matriceaSursa[x-1][y];
@@ -281,7 +280,7 @@ void Minesweeper::umplere(int x, int y)
                                 }
                             coada[0][ultim]=x-1;
                             coada[1][ultim]=y-1;
-                            if(matriceaAfisata[x-1][y-1]==char(176))
+                            if(matriceaAfisata[x-1][y-1]==char(176) && matriceaAfisata[x-1][y-1]!='!')
                                 {
                                     nonmines++;
                                     matriceaAfisata[x-1][y-1]=matriceaSursa[x-1][y-1];
@@ -289,7 +288,7 @@ void Minesweeper::umplere(int x, int y)
                                 }
                             coada[0][ultim]=x;
                             coada[1][ultim]=y-1;
-                            if(matriceaAfisata[x][y-1]==char(176))
+                            if(matriceaAfisata[x][y-1]==char(176) && matriceaAfisata[x][y-1]!='!')
                                 {
                                     nonmines++;
                                     matriceaAfisata[x][y-1]=matriceaSursa[x][y-1];
@@ -302,7 +301,7 @@ void Minesweeper::umplere(int x, int y)
                             {
                                 coada[0][ultim]=x-1;
                                 coada[1][ultim]=y;
-                                if(matriceaAfisata[x-1][y]==char(176))
+                                if(matriceaAfisata[x-1][y]==char(176) && matriceaAfisata[x-1][y]!='!')
                                     {
                                         nonmines++;
                                         matriceaAfisata[x-1][y]=matriceaSursa[x-1][y];
@@ -310,7 +309,7 @@ void Minesweeper::umplere(int x, int y)
                                     }
                                 coada[0][ultim]=x-1;
                                 coada[1][ultim]=y+1;
-                                if(matriceaAfisata[x-1][y+1]==char(176))
+                                if(matriceaAfisata[x-1][y+1]==char(176) && matriceaAfisata[x-1][y+1]!='!')
                                     {
                                         nonmines++;
                                         matriceaAfisata[x-1][y+1]=matriceaSursa[x-1][y+1];
@@ -318,7 +317,7 @@ void Minesweeper::umplere(int x, int y)
                                     }
                                 coada[0][ultim]=x;
                                 coada[1][ultim]=y+1;
-                                if(matriceaAfisata[x][y+1]==char(176))
+                                if(matriceaAfisata[x][y+1]==char(176) && matriceaAfisata[x][y+1]!='!')
                                     {
                                         nonmines++;
                                         matriceaAfisata[x][y+1]=matriceaSursa[x][y+1];
@@ -331,7 +330,7 @@ void Minesweeper::umplere(int x, int y)
                                 {
                                     coada[0][ultim]=x;
                                     coada[1][ultim]=y-1;
-                                    if(matriceaAfisata[x][y-1]==char(176))
+                                    if(matriceaAfisata[x][y-1]==char(176) && matriceaAfisata[x][y-1]!='!')
                                         {
                                             nonmines++;
                                             matriceaAfisata[x][y-1]=matriceaSursa[x][y-1];
@@ -339,7 +338,7 @@ void Minesweeper::umplere(int x, int y)
                                         }
                                     coada[0][ultim]=x;
                                     coada[1][ultim]=y+1;
-                                    if(matriceaAfisata[x][y+1]==char(176))
+                                    if(matriceaAfisata[x][y+1]==char(176) && matriceaAfisata[x][y+1]!='!')
                                         {
                                             nonmines++;
                                             matriceaAfisata[x][y+1]=matriceaSursa[x][y+1];
@@ -347,7 +346,7 @@ void Minesweeper::umplere(int x, int y)
                                         }
                                     coada[0][ultim]=x+1;
                                     coada[1][ultim]=y-1;
-                                    if(matriceaAfisata[x+1][y-1]==char(176))
+                                    if(matriceaAfisata[x+1][y-1]==char(176) && matriceaAfisata[x+1][y-1]!='!')
                                         {
                                             nonmines++;
                                             matriceaAfisata[x+1][y-1]=matriceaSursa[x+1][y-1];
@@ -355,7 +354,7 @@ void Minesweeper::umplere(int x, int y)
                                         }
                                     coada[0][ultim]=x+1;
                                     coada[1][ultim]=y+1;
-                                    if(matriceaAfisata[x+1][y+1]==char(176))
+                                    if(matriceaAfisata[x+1][y+1]==char(176) && matriceaAfisata[x+1][y+1]!='!')
                                         {
                                             nonmines++;
                                             matriceaAfisata[x+1][y+1]=matriceaSursa[x+1][y+1];
@@ -363,7 +362,7 @@ void Minesweeper::umplere(int x, int y)
                                         }
                                     coada[0][ultim]=x+1;
                                     coada[1][ultim]=y;
-                                    if(matriceaAfisata[x+1][y]==char(176))
+                                    if(matriceaAfisata[x+1][y]==char(176) && matriceaAfisata[x+1][y]!='!')
                                         {
                                             nonmines++;
                                             matriceaAfisata[x+1][y]=matriceaSursa[x+1][y];
@@ -376,7 +375,7 @@ void Minesweeper::umplere(int x, int y)
                                     {
                                         coada[0][ultim]=x;
                                         coada[1][ultim]=y-1;
-                                        if(matriceaAfisata[x][y-1]==char(176))
+                                        if(matriceaAfisata[x][y-1]==char(176) && matriceaAfisata[x][y-1]!='!')
                                             {
                                                 nonmines++;
                                                 matriceaAfisata[x][y-1]=matriceaSursa[x][y-1];
@@ -384,7 +383,7 @@ void Minesweeper::umplere(int x, int y)
                                             }
                                         coada[0][ultim]=x;
                                         coada[1][ultim]=y+1;
-                                        if(matriceaAfisata[x][y+1]==char(176))
+                                        if(matriceaAfisata[x][y+1]==char(176) && matriceaAfisata[x][y+1]!='!')
                                             {
                                                 nonmines++;
                                                 matriceaAfisata[x][y+1]=matriceaSursa[x][y+1];
@@ -392,7 +391,7 @@ void Minesweeper::umplere(int x, int y)
                                             }
                                         coada[0][ultim]=x-1;
                                         coada[1][ultim]=y-1;
-                                        if(matriceaAfisata[x-1][y-1]==char(176))
+                                        if(matriceaAfisata[x-1][y-1]==char(176) && matriceaAfisata[x-1][y-1]!='!')
                                             {
                                                 nonmines++;
                                                 matriceaAfisata[x-1][y-1]=matriceaSursa[x-1][y-1];
@@ -400,7 +399,7 @@ void Minesweeper::umplere(int x, int y)
                                             }
                                         coada[0][ultim]=x-1;
                                         coada[1][ultim]=y+1;
-                                        if(matriceaAfisata[x-1][y+1]==char(176))
+                                        if(matriceaAfisata[x-1][y+1]==char(176) && matriceaAfisata[x-1][y+1]!='!')
                                             {
                                                 nonmines++;
                                                 matriceaAfisata[x-1][y+1]=matriceaSursa[x-1][y+1];
@@ -408,7 +407,7 @@ void Minesweeper::umplere(int x, int y)
                                             }
                                         coada[0][ultim]=x-1;
                                         coada[1][ultim]=y;
-                                        if(matriceaAfisata[x-1][y]==char(176))
+                                        if(matriceaAfisata[x-1][y]==char(176) && matriceaAfisata[x-1][y]!='!')
                                             {
                                                 nonmines++;
                                                 matriceaAfisata[x-1][y]=matriceaSursa[x-1][y];
@@ -421,7 +420,7 @@ void Minesweeper::umplere(int x, int y)
                                         {
                                             coada[0][ultim]=x-1;
                                             coada[1][ultim]=y;
-                                            if(matriceaAfisata[x-1][y]==char(176))
+                                            if(matriceaAfisata[x-1][y]==char(176) && matriceaAfisata[x-1][y]!='!')
                                             {
                                                 nonmines++;
                                                 matriceaAfisata[x-1][y]=matriceaSursa[x-1][y];
@@ -429,7 +428,7 @@ void Minesweeper::umplere(int x, int y)
                                             }
                                             coada[0][ultim]=x+1;
                                             coada[1][ultim]=y;
-                                            if(matriceaAfisata[x+1][y]==char(176))
+                                            if(matriceaAfisata[x+1][y]==char(176) && matriceaAfisata[x+1][y]!='!')
                                             {
                                                 nonmines++;
                                                 matriceaAfisata[x+1][y]=matriceaSursa[x+1][y];
@@ -437,7 +436,7 @@ void Minesweeper::umplere(int x, int y)
                                             }
                                             coada[0][ultim]=x-1;
                                             coada[1][ultim]=y+1;
-                                            if(matriceaAfisata[x-1][y+1]==char(176))
+                                            if(matriceaAfisata[x-1][y+1]==char(176) && matriceaAfisata[x-1][y+1]!='!')
                                             {
                                                 nonmines++;
                                                 matriceaAfisata[x-1][y+1]=matriceaSursa[x-1][y+1];
@@ -445,7 +444,7 @@ void Minesweeper::umplere(int x, int y)
                                             }
                                             coada[0][ultim]=x+1;
                                             coada[1][ultim]=y+1;
-                                            if(matriceaAfisata[x+1][y+1]==char(176))
+                                            if(matriceaAfisata[x+1][y+1]==char(176) && matriceaAfisata[x+1][y+1]!='!')
                                             {
                                                 nonmines++;
                                                 matriceaAfisata[x+1][y+1]=matriceaSursa[x+1][y+1];
@@ -453,7 +452,7 @@ void Minesweeper::umplere(int x, int y)
                                             }
                                             coada[0][ultim]=x;
                                             coada[1][ultim]=y+1;
-                                            if(matriceaAfisata[x][y+1]==char(176))
+                                            if(matriceaAfisata[x][y+1]==char(176) && matriceaAfisata[x][y+1]!='!')
                                             {
                                                 nonmines++;
                                                 matriceaAfisata[x][y+1]=matriceaSursa[x][y+1];
@@ -466,7 +465,7 @@ void Minesweeper::umplere(int x, int y)
                                             {
                                                 coada[0][ultim]=x-1;
                                                 coada[1][ultim]=y;
-                                                if(matriceaAfisata[x-1][y]==char(176))
+                                                if(matriceaAfisata[x-1][y]==char(176) && matriceaAfisata[x-1][y]!='!')
                                                 {
                                                     nonmines++;
                                                     matriceaAfisata[x-1][y]=matriceaSursa[x-1][y];
@@ -474,7 +473,7 @@ void Minesweeper::umplere(int x, int y)
                                                 }
                                                 coada[0][ultim]=x+1;
                                                 coada[1][ultim]=y;
-                                                if(matriceaAfisata[x+1][y]==char(176))
+                                                if(matriceaAfisata[x+1][y]==char(176) && matriceaAfisata[x+1][y]!='!')
                                                 {
                                                     nonmines++;
                                                     matriceaAfisata[x+1][y]=matriceaSursa[x+1][y];
@@ -482,7 +481,7 @@ void Minesweeper::umplere(int x, int y)
                                                 }
                                                 coada[0][ultim]=x-1;
                                                 coada[1][ultim]=y-1;
-                                                if(matriceaAfisata[x-1][y-1]==char(176))
+                                                if(matriceaAfisata[x-1][y-1]==char(176) && matriceaAfisata[x-1][y-1]!='!')
                                                 {
                                                     nonmines++;
                                                     matriceaAfisata[x-1][y-1]=matriceaSursa[x-1][y-1];
@@ -490,7 +489,7 @@ void Minesweeper::umplere(int x, int y)
                                                 }
                                                 coada[0][ultim]=x+1;
                                                 coada[1][ultim]=y-1;
-                                                if(matriceaAfisata[x+1][y-1]==char(176))
+                                                if(matriceaAfisata[x+1][y-1]==char(176) && matriceaAfisata[x+1][y-1]!='!')
                                                 {
                                                     nonmines++;
                                                     matriceaAfisata[x+1][y-1]=matriceaSursa[x+1][y-1];
@@ -498,7 +497,7 @@ void Minesweeper::umplere(int x, int y)
                                                 }
                                                 coada[0][ultim]=x;
                                                 coada[1][ultim]=y-1;
-                                                if(matriceaAfisata[x][y-1]==char(176))
+                                                if(matriceaAfisata[x][y-1]==char(176) && matriceaAfisata[x][y-1]!='!')
                                                 {
                                                     nonmines++;
                                                     matriceaAfisata[x][y-1]=matriceaSursa[x][y-1];
@@ -510,7 +509,7 @@ void Minesweeper::umplere(int x, int y)
                                             {
                                                 coada[0][ultim]=x-1;
                                                 coada[1][ultim]=y;
-                                                if(matriceaAfisata[x-1][y]==char(176))
+                                                if(matriceaAfisata[x-1][y]==char(176) && matriceaAfisata[x-1][y]!='!')
                                                 {
                                                     nonmines++;
                                                     matriceaAfisata[x-1][y]=matriceaSursa[x-1][y];
@@ -518,7 +517,7 @@ void Minesweeper::umplere(int x, int y)
                                                 }
                                                 coada[0][ultim]=x;
                                                 coada[1][ultim]=y-1;
-                                                if(matriceaAfisata[x][y-1]==char(176))
+                                                if(matriceaAfisata[x][y-1]==char(176) && matriceaAfisata[x][y-1]!='!')
                                                 {
                                                     nonmines++;
                                                     matriceaAfisata[x][y-1]=matriceaSursa[x][y-1];
@@ -526,7 +525,7 @@ void Minesweeper::umplere(int x, int y)
                                                 }
                                                 coada[0][ultim]=x-1;
                                                 coada[1][ultim]=y-1;
-                                                if(matriceaAfisata[x-1][y-1]==char(176))
+                                                if(matriceaAfisata[x-1][y-1]==char(176) && matriceaAfisata[x-1][y-1]!='!')
                                                 {
                                                     nonmines++;
                                                     matriceaAfisata[x-1][y-1]=matriceaSursa[x-1][y-1];
@@ -534,7 +533,7 @@ void Minesweeper::umplere(int x, int y)
                                                 }
                                                 coada[0][ultim]=x+1;
                                                 coada[1][ultim]=y+1;
-                                                if(matriceaAfisata[x+1][y+1]==char(176))
+                                                if(matriceaAfisata[x+1][y+1]==char(176) && matriceaAfisata[x+1][y+1]!='!')
                                                 {
                                                     nonmines++;
                                                     matriceaAfisata[x+1][y+1]=matriceaSursa[x+1][y+1];
@@ -542,7 +541,7 @@ void Minesweeper::umplere(int x, int y)
                                                 }
                                                 coada[0][ultim]=x-1;
                                                 coada[1][ultim]=y+1;
-                                                if(matriceaAfisata[x-1][y+1]==char(176))
+                                                if(matriceaAfisata[x-1][y+1]==char(176) && matriceaAfisata[x-1][y+1]!='!')
                                                 {
                                                     nonmines++;
                                                     matriceaAfisata[x-1][y+1]=matriceaSursa[x-1][y+1];
@@ -550,7 +549,7 @@ void Minesweeper::umplere(int x, int y)
                                                 }
                                                 coada[0][ultim]=x+1;
                                                 coada[1][ultim]=y-1;
-                                                if(matriceaAfisata[x+1][y-1]==char(176))
+                                                if(matriceaAfisata[x+1][y-1]==char(176) && matriceaAfisata[x+1][y-1]!='!')
                                                 {
                                                     nonmines++;
                                                     matriceaAfisata[x+1][y-1]=matriceaSursa[x+1][y-1];
@@ -558,7 +557,7 @@ void Minesweeper::umplere(int x, int y)
                                                 }
                                                 coada[0][ultim]=x+1;
                                                 coada[1][ultim]=y;
-                                                if(matriceaAfisata[x+1][y]==char(176))
+                                                if(matriceaAfisata[x+1][y]==char(176) && matriceaAfisata[x+1][y]!='!')
                                                 {
                                                     nonmines++;
                                                     matriceaAfisata[x+1][y]=matriceaSursa[x+1][y];
@@ -566,7 +565,7 @@ void Minesweeper::umplere(int x, int y)
                                                 }
                                                 coada[0][ultim]=x;
                                                 coada[1][ultim]=y+1;
-                                                if(matriceaAfisata[x][y+1]==char(176))
+                                                if(matriceaAfisata[x][y+1]==char(176) && matriceaAfisata[x][y+1]!='!')
                                                 {
                                                     nonmines++;
                                                     matriceaAfisata[x][y+1]=matriceaSursa[x][y+1];
@@ -614,21 +613,41 @@ void Minesweeper::Mutare()
     cin>>operatie;
     if(operatie<0 || operatie>1)
     {
-        cout<<"Introduceti o operatie valida";
+        cout<<"Introduceti o operatie valida"<<endl;
         system("pause");
+        system("cls");
+        Mutare();
+    }
+    if(operatie==1 && matriceaAfisata[linie][coloana-65]=='!')
+    {
+        matriceaAfisata[linie][coloana-65]=char(176);
+        nrFlaguri--;
+        nonmines--;
+        //system("pause");
         system("cls");
         Mutare();
     }
     if(operatie==1)
         {
-            if(matriceaAfisata[linie][coloana-65]!=matriceaSursa[linie][coloana-65])
-                matriceaAfisata[linie][coloana-65]='!';
-            system("pause");
+            if(matriceaAfisata[linie][coloana-65]!=matriceaSursa[linie][coloana-65] && nrFlaguri<nrMine)
+                {
+                    matriceaAfisata[linie][coloana-65]='!';
+                    nrFlaguri++;
+                    nonmines++;
+                }
+
             system("cls");
             Mutare();
         }
     else
     {
+        if(matriceaAfisata[linie][coloana-65]=='!')
+        {
+            cout<<"Nu poti deschide ceva marcat ca posibila mina"<<endl;
+            system("pause");
+            system("cls");
+            Mutare();
+        }
         if (matriceaAfisata[linie][coloana-65]==matriceaSursa[linie][coloana-65])
         {
             system("cls");
@@ -676,7 +695,7 @@ void Minesweeper::Afiseaza_Matrice_Afisata()
 }
 void Minesweeper::Mesaj_de_Incheiere()
 {
-    int a ,b;
+    int a ,b, optiune;
     for(a=0;a<lungime*3;a++)
         cout<<"_";
     cout<<endl;
@@ -694,18 +713,45 @@ void Minesweeper::Mesaj_de_Incheiere()
     }
     if (nonmines==lungime*inaltime-nrMine)
     {
-        cout<<"Felicitari, acum du-te sa joci un Minesweeper unde sa poti folosi mouse-ul!"<<endl;
+        cout<<"Felicitari, ati castigat!"<<endl;
     }
     else
     {
-        cout<<"Ai pierdut, mai bine joaca un Minesweeper unde poti folosi mouse-ul!"<<endl;
+        cout<<"Ati pierdut, mai incercati!"<<endl;
     }
 
     cout<<endl<<"Multumesc ca ati trecut pe aici!"<<endl;
+    cout<<"Alegeti una din optiunile de mai jos"<<endl;
+    cout<<"1. Mai incercati o data"<<endl;
+    cout<<"2. Parasiti jocul"<<endl;
+    cin>>optiune;
+    if(optiune>2 || optiune <1)
+    {
+        cout<<"introduceti o optiune valida"<<endl;
+        system("cls");
+        Mesaj_de_Incheiere();
+    }
+    else
+    {
+        if(optiune==2)
+            exit(0);
+        if(optiune==1)
+            {
+                system("cls");
+                srand(time(0));
+                Minesweeper thisgame;
+                thisgame.Mesaj_Bun_Venit();
+                thisgame.plasareMine();
+                //thisgame.Afiseaza_Matrice_Afisata();
+                thisgame.VerificareVecini();
+                thisgame.Mutare();
+                //thisgame.Mesaj_de_Incheiere();
+            }
+    }
 }
+
 int main()
 {
-    int i,j;
     srand(time(0));
     Minesweeper thisgame;
       thisgame.Mesaj_Bun_Venit();
