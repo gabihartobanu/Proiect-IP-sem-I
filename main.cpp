@@ -2,7 +2,7 @@
 #include<stdlib.h>
 #include<time.h>
 #include<cstring>
-#include<windows.h>
+
 using namespace std;
 char matriceaSursa[100][100],matriceaAfisata[100][100];
 class Minesweeper
@@ -26,7 +26,7 @@ Minesweeper::Minesweeper()
 }
 void Minesweeper::Mesaj_Bun_Venit()
 {
-    int optiune;
+    int optiune,i,j;
     cout<<" ________________________________________________________________"<<endl;
     cout<<"| Bun venit in jocul meu de Minesweeper                          |"<<endl;
     cout<<"|----------------------------------------------------------------|"<<endl;
@@ -79,6 +79,9 @@ void Minesweeper::Mesaj_Bun_Venit()
         cin>>lungime;
         system("cls");
     }
+    for(i=0;i<inaltime;i++)
+        for(j=0;j<lungime;j++)
+            matriceaSursa[i][j]='0';
 }
 void Minesweeper::plasareMine()
 {
@@ -233,7 +236,7 @@ void Minesweeper::VerificareVecini()
 }
 void Minesweeper::umplere(int x, int y)
 {
-    int coada[2][1000],prim=0,ultim=0;
+    int coada[2][10000],prim=0,ultim=0;
     nonmines++;
     coada[0][ultim]=x;
     coada[1][ultim]=y;
@@ -626,8 +629,6 @@ void Minesweeper::Mutare()
     Afiseaza_Matrice_Afisata();
     cout<<"Introduceti o linie de la 0 la "<<inaltime-1<<endl;
     cin>>linie;
-    if (linie == VK_ESCAPE)
-        exit(0);
     if (linie<0 || linie>=inaltime)
     {
         cout<<"Introduceti o linie de la 0 la "<<inaltime-1<<endl;
@@ -777,10 +778,8 @@ void Minesweeper::Mesaj_de_Incheiere()
                 Minesweeper thisgame;
                 thisgame.Mesaj_Bun_Venit();
                 thisgame.plasareMine();
-                //thisgame.Afiseaza_Matrice_Afisata();
                 thisgame.VerificareVecini();
                 thisgame.Mutare();
-                //thisgame.Mesaj_de_Incheiere();
             }
     }
 }
